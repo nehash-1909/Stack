@@ -1,0 +1,69 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+ {
+    long long t;
+    cin>>t;
+    while(t--)
+    {
+        int n;
+        cin>>n;
+        
+        long long arr[n];
+        for(int i=0;i<n;i++)
+            cin>>arr[i];
+        
+        cout<<getMaxArea(arr, n)<<endl;
+    
+    }
+	return 0;
+}
+
+long getMaxArea(long long arr[], int n){
+  stack<int> s;
+  int i=0;
+  long long maxa=-1;
+  long long area;
+  while(i<n)
+  {
+      if(s.empty()||arr[s.top()]<=arr[i])
+      {
+          s.push(i++);
+      }
+      else
+      {
+          
+          int l=s.top();
+          s.pop();
+          if(s.empty())
+          {
+              area=i*arr[l];
+          }
+          else
+          {
+              area=arr[l]*(i-s.top()-1);
+          }
+          if(maxa<area)
+          maxa=area;
+      }
+  }
+  while(!s.empty())
+  {
+       
+          int l=s.top();
+          s.pop();
+          if(s.empty())
+          {
+              area=i*arr[l];
+          }
+          else
+          {
+              area=arr[l]*(i-s.top()-1);
+          }
+          if(maxa<area)
+          maxa=area;
+  }
+  return maxa;
+    
+}
